@@ -1,7 +1,12 @@
 const express = require('express');
-
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+
+app.use(cors())
+app.use(bodyParser.json());
 
 const users = ["katha", "shri", "bobo"];
 
@@ -14,14 +19,19 @@ app.get('/', (req, res) => {
     res.send(fruit);
   });
 
-  app.get('/fruit/mango', (req, res) => {
-      res.send({fruit: 'mango'});
-  });
-
+ 
   app.get('/users/:id', (req, res) => {
       const id = req.params.id;
       const name = users[id];
       res.send({id, name});
+  });
+
+  //post
+  app.post('/addUser', (req, res) => {
+      //save to database
+      const user = req.body;
+      user.id = 55;
+      res.send(user);
   })
 
   
